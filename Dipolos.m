@@ -12,11 +12,12 @@
 e0 = 8.85 .*10 .^-12;
 po = 1;
 
-R = linspace(-20,100);
+R = linspace(0,80);
 phi = linspace(0,pi,100)';
 theta = linspace(0,2*pi,100)';
 
 [phi,theta] = meshgrid(phi,theta);
+
 R = meshgrid(R);
 
 
@@ -24,22 +25,29 @@ R = meshgrid(R);
 
 V = @(r,theta,phi) ((po .* (sin(theta) .* cos(phi)))./(4 .* pi .* e0 * R.^2)) %potencial 1
 V2 = @(r,theta,phi) ((po .* (sin(theta) .* sin(phi)))./(4 .* pi .* e0 * R.^2)) %potencial 2
-V3 = @(r,theta,phi) ((po .* (cos(theta)))./(4 .* pi .* e0 * R.^2)) %potencial 3
+V3 = @(r,theta) ((po .* (cos(theta)))./(4 .* pi .* e0 * R.^2)) %potencial 3
 
 
-subplot (2,2,2)
+subplot (2,2,1)
 surf(X,Y,V(R,theta,phi));
 xlabel('X')
 ylabel('Y')
-zlabel('Potencial Electrico')
+zlabel('Potencial Electrico PX')
 view (-47,32)
-
-%Graficamos Potencial Eléctrico (Curvas de Nivel)
-subplot (2,2,1)
-contourf(X,Y,V(R,theta,phi))
+colorbar
+subplot (2,2,2)
+surf(X,Y,V2(R,theta,phi));
 xlabel('X')
 ylabel('Y')
-zlabel('Potencial Electrico')
+zlabel('Potencial Electrico PY')
+view (-47,32)
+colorbar
+subplot (2,2,3)
+surf(X,Y,V3(R,theta));
+xlabel('X')
+ylabel('Y')
+zlabel('Potencial Electrico PZ')
+view (-47,32)
 
 colorbar
 

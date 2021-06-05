@@ -10,7 +10,7 @@
 %el inciso anterior.
 %clearvars
 e0 = 8.85 .*10 .^-12;
-po = 0.000001;
+po = 10;
 
 R = linspace(-1,1);
 phi = linspace(0,pi/2,100)';
@@ -67,25 +67,14 @@ Eyc = Eyc./R;
 Ezc = sqrt(Exc.^2+Eyc.^2);
 
 figure(2);
-subplot(2,2,1)
-quiver(X,Y,Exa,Eya)
+quiver3(X,Y,X,Exa,Eya,Eza)
 grid on
+quiver3(X,Y,X,Exb,Eyb,Ezb)
+hold on
+quiver3(X,Y,X,Exc,Eyc,Ezc)
+hold off
 xlabel('X')
 ylabel('Y')
 zlabel('Z')
-
-subplot(2,2,2)
-quiver(X,Y,Exb,Eyb)
-grid on
-xlabel('X')
-ylabel('Y')
-zlabel('Z')
-
-subplot(2,2,3)
-quiver(X,Y,Exc,Eyc)
-grid on 
-xlabel('X')
-ylabel('Y')
-zlabel('Z')
-
+view (-47,32)
 

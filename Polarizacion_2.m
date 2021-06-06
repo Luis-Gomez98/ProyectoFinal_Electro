@@ -15,23 +15,29 @@ e0 = 8.85 .*10 .^-12;
 e_R = 2.7.*10 .^-12;
 alfa = 10;
 
-[theta,R] = meshgrid(0:2.*pi,2:10);
+R = linspace(-1,1);
+phi = linspace(0,pi,100)';
+theta = linspace(0,2*pi,100)';
 
+[phi,theta] = meshgrid(phi,theta);
+
+R = meshgrid(R);
+
+
+[X,Y,Z] = sph2cart(theta,phi,R);
 %Superficiales
-o_a =  ((-q/(4.*pi.*a.^2)).*(1-(1/e_R)));
-o_b =  ((-q/(4.*pi.*b.^2)).*(1-(1/e_R)));
+o_a = @(R,theta) ((-q/(4.*pi.*R.^2)).*(1-(1/e_R)));
+o_b = @(R,theta) ((-q/(4.*pi.*R.^2)).*(1-(1/e_R)));
 
-o_b =  (k.*b);
-o_2b =  (-2.*k.*b);
+o_b = @(R,theta) (k.*R);
+o_2b = @(R,theta) (-2.*k.*R);
 
 %Volumetrica
 p_p = (3.*k);
 
-dt = o_a + o_b + o_b + o_2b + p_p;
 
 figure(1);
-[X,Y] = pol2cart(theta,R);
-surf(X,Y,dt)
+surf(X,Y,Z)
 colorbar
 title('Mapa de colores densidades de carga');
 xlabel('x');
